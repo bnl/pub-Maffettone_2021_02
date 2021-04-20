@@ -13,6 +13,7 @@ def set_up(
     batch_size=16,
     env_version=1,
     seed_count=10,
+    max_count=10,
     out_path=None,
 ):
     """
@@ -31,6 +32,8 @@ def set_up(
         Environment version. 1 being ideal time, 2 being time limited
     seed_count : int
         Number of bad seeds
+    max_count: int
+            Maximum number of samples/scans needed to saturate a bad_seed
     out_path : path
         Toplevel dir for output of models and checkpoints
 
@@ -83,7 +86,7 @@ def set_up(
         environment = CartSeed(
             seed_count=seed_count,
             bad_seed_count=None,
-            max_count=10,
+            max_count=max_count,
             sequential=True,
             revisiting=True,
             bad_seed_reward_f=func_dict.get(scoring, None),
@@ -93,7 +96,7 @@ def set_up(
         environment = CartSeedCountdown(
             seed_count=seed_count,
             bad_seed_count=None,
-            max_count=10,
+            max_count=max_count,
             sequential=True,
             revisiting=True,
             bad_seed_reward_f=func_dict.get(scoring, None),
